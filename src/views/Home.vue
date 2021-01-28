@@ -1,6 +1,8 @@
 <template>
   <div class="content">
-    <div><Echart :option="option"></Echart></div>
+    <div style="background:violet;padding:40px;">
+      <Echart :option="option"></Echart>
+    </div>
     <div><Echart :option="option1"></Echart></div>
     <div><Echart :option="pie" :isAxisChart="false"></Echart></div>
     <div><Echart :option="option2"></Echart></div>
@@ -11,13 +13,14 @@
 import Echart from "../components/echart/echatr.vue";
 export default {
   components: {
-    Echart,
+    Echart
   },
   data() {
     return {
       option: {
         xData: ["1月", "2月", "3月", "4月", "5月", "6月", "7月"],
-        title: "标题",
+        // title: "标题",
+        // width:25,
         series: [
           // {
           //   color: "#01FFFF",
@@ -26,32 +29,39 @@ export default {
           // },
           {
             color: "#1C68FF",
-            name: "删除",
-            data: ["100", "102", "114", "268", "68", "257", "400"],
-          },
+            // name: "删除",
+            data: ["100", "102", "114", "268", "68", "257", "400"]
+          }
         ],
-        XYTitleColor: "#cccccc",
+        XYColor: "red",
+        titleColor: "#000"
       },
       option2: {
         xData: ["1", "2", "3", "4", "5", "6"],
+        width: 20,
         series: [
           {
             color: "red",
             name: "新增测试",
-            data: ["130", "205", "18", "568", "689", "457"],
+            data: ["130", "205", "108", "568", "689", "457"]
+          },
+          {
+            color: "#000",
+            name: "新增测试1",
+            data: ["130", "205", "18", "568", "689", "457"]
           },
           {
             color: "#1C68FF",
             name: "删除",
-            data: ["100", "122", "114", "268", "68", "257"],
+            data: ["100", "122", "114", "268", "68", "257"]
           },
           {
             color: "#ccc",
             name: "编辑",
-            data: ["1002", "1222", "1142", "2682", "682", "2527"],
-          },
+            data: ["100", "122", "142", "282", "82", "227"]
+          }
         ],
-        XYTitleColor: "#000",
+        XYColor: "#000"
       },
       option1: {
         xData: ["1", "2", "3", "4", "5", "6"],
@@ -60,31 +70,31 @@ export default {
           {
             color: "#ccc",
             name: "删除",
-            data: ["100", "122", "114", "268", "68", "257"],
+            data: ["100", "122", "114", "268", "68", "257"]
           },
           {
             color: "#1C68FF",
             name: "编辑",
-            data: ["1002", "1222", "1142", "2682", "682", "2527"],
-          },
+            data: ["1002", "1222", "1142", "2682", "682", "2527"]
+          }
         ],
-        XYTitleColor: "#000",
+        XYColor: "#000"
       },
       pie: {
         title: {
           text: "测试",
           subtext: "纯属虚构",
-          left: "center",
+          left: "center"
         },
         tooltip: {
           show: true,
           trigger: "item",
-          formatter: "{a} <br/>{b} : {c} ({d}%)",
+          formatter: "{a} <br/>{b} : {c} ({d}%)"
         },
         legend: {
           orient: "vertical",
           left: "left",
-          data: ["直接访问", "邮件营销", "联盟广告", "视频广告", "搜索引擎"],
+          data: ["直接访问", "邮件营销", "联盟广告", "视频广告", "搜索引擎"]
         },
         series: [
           {
@@ -97,13 +107,13 @@ export default {
               { value: 310, name: "邮件营销" },
               { value: 234, name: "联盟广告" },
               { value: 135, name: "视频广告" },
-              { value: 1548, name: "搜索引擎" },
-            ],
-          },
-        ],
-      },
+              { value: 1548, name: "搜索引擎" }
+            ]
+          }
+        ]
+      }
     };
-  },
+  }
 };
 </script>
 
@@ -112,11 +122,12 @@ export default {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  height: 100vh;
+  height: 60vh;
   justify-content: space-around;
   > div {
     width: 40%;
-    height: 50%;
+    height: 60%;
+    // background: violet;
   }
 }
 </style>
