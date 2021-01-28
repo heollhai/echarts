@@ -14,6 +14,7 @@
 	  titleColor:'#000'
 	},
 					作用			是否必须
+	isAxisChart 	饼图还是3d圆柱		默认3d圆柱	布尔类型
 	xData 	  		x轴显示数据			是			[]
 	series[								是			[]
 		color 		圆柱的颜色			否			string
