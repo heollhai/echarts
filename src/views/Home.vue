@@ -1,19 +1,22 @@
 <template>
   <div class="content">
     <div><Echart :option="data"></Echart></div>
-    <div>
+    <!-- <div>
       <Echart :option="option"></Echart>
     </div>
     <div><Echart :option="pie" :isAxisChart="false"></Echart></div>
-    <div><Echart :option="option2"></Echart></div>
+    <div><Echart :option="option2"></Echart></div> -->
+    <Highcharts></Highcharts>
   </div>
 </template>
 
 <script>
 import Echart from "../components/echart/echatr.vue";
+import Highcharts from "../components/Highcharts/pie";
 export default {
   components: {
     Echart,
+    Highcharts,
   },
   created() {
     let keyArray = Object.keys(this.dataList[0]);
@@ -106,34 +109,60 @@ export default {
         XYColor: "#000",
       },
       pie: {
-        title: {
-          text: "测试",
-          subtext: "纯属虚构",
-          left: "center",
-        },
-        tooltip: {
-          show: true,
-          trigger: "item",
-          formatter: "{a} <br/>{b} : {c} ({d}%)",
-        },
         legend: {
-          orient: "vertical",
-          left: "left",
-          data: ["直接访问", "邮件营销", "联盟广告", "视频广告", "搜索引擎"],
+          // orient: "vertical",
+          // left: "left",
+          // data: ["直接访问", "邮件营销", "联盟广告", "视频广告", "搜索引擎"],
         },
         series: [
           {
-            name: "访问来源",
+            name: "客户访问来源",
             type: "pie",
-            radius: "55%",
-            center: ["50%", "60%"],
+            radius: ["50%", "70%"],
+            center: ["50%", "50%"],
             data: [
-              { value: 335, name: "直接访问" },
-              { value: 310, name: "邮件营销" },
-              { value: 234, name: "联盟广告" },
-              { value: 135, name: "视频广告" },
-              { value: 1548, name: "搜索引擎" },
-            ],
+              { value: 335, name: "西宁", itemStyle: { color: "#0bebf9" } },
+              { value: 310, name: "海东", itemStyle: { color: "#07bcf8" } },
+              { value: 400, name: "海北", itemStyle: { color: "#f488f2" } },
+              { value: 235, name: "海南", itemStyle: { color: "#fcf367" } },
+              { value: 274, name: "果洛", itemStyle: { color: "#fcf912" } },
+              { value: 258, name: "玉树", itemStyle: { color: "#fa14c6" } },
+              { value: 280, name: "海西", itemStyle: { color: "#184dfa" } },
+            ].sort(function(a, b) {
+              return a.value - b.value;
+            }),
+            roseType: "radius",
+            //饼状图的外围标签
+            label: {
+              normal: {
+                textStyle: {
+                  color: "rgba(0, 0, 0, 0.3)",
+                },
+              },
+            },
+            //指向外围标签的线条
+            labelLine: {
+              normal: {
+                lineStyle: {
+                  color: "rgba(0, 0, 255, 0.3)",
+                },
+                smooth: 0.2,
+                length: 10,
+                length2: 20,
+              },
+            },
+            itemStyle: {
+              normal: {
+                //具体决定了饼状图每一份的颜色显示
+                color: "#FFA07A",
+                //饼状图阴影，值越大阴影亮度越高
+                shadowBlur: 200,
+                shadowColor: "rgba(0, 0, 0, 0.5)",
+              },
+            },
+
+            animationType: "scale",
+            animationEasing: "elasticOut",
           },
         ],
       },
