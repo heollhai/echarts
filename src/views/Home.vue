@@ -1,9 +1,9 @@
 <template>
   <div class="content">
-    <div style="background:violet;padding:40px;">
+    <div><Echart :option="data"></Echart></div>
+    <div>
       <Echart :option="option"></Echart>
     </div>
-    <div><Echart :option="option1"></Echart></div>
     <div><Echart :option="pie" :isAxisChart="false"></Echart></div>
     <div><Echart :option="option2"></Echart></div>
   </div>
@@ -15,8 +15,33 @@ export default {
   components: {
     Echart,
   },
+  created() {
+    let keyArray = Object.keys(this.dataList[0]);
+    keyArray.forEach((key, index) => {
+      this.data.series.push({
+        name: key,
+        data: this.dataList.map((item) => {
+          console.log(item, key, "key+item");
+          return item[key];
+        }),
+        color: this.color[index],
+      });
+    });
+    this.data.title = "月";
+  },
   data() {
     return {
+      dataList: [
+        { 删除: "123", 新增: "134" },
+        { 删除: "133", 新增: "334" },
+        { 删除: "153", 新增: "264" },
+        { 删除: "113", 新增: "274" },
+      ],
+      color: ["#01FFFF", "red"],
+      data: {
+        xData: ["1月", "2月", "3月", "4月"],
+        series: [],
+      },
       option: {
         xData: ["1月", "2月", "3月", "4月", "5月", "6月", "7月"],
         // title: "标题",
@@ -58,6 +83,7 @@ export default {
           {
             color: "#ccc",
             name: "编辑",
+
             data: ["100", "122", "142", "282", "82", "227"],
           },
         ],
