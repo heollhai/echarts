@@ -1,6 +1,8 @@
 <template>
   <div class="content">
-    <div><Echart :option="option"></Echart></div>
+    <div style="background:violet;padding:40px;">
+      <Echart :option="option"></Echart>
+    </div>
     <div><Echart :option="option1"></Echart></div>
     <div><Echart :option="pie" :isAxisChart="false"></Echart></div>
     <div><Echart :option="option2"></Echart></div>
@@ -17,7 +19,8 @@ export default {
     return {
       option: {
         xData: ["1月", "2月", "3月", "4月", "5月", "6月", "7月"],
-        title: "标题",
+        // title: "标题",
+        // width:25,
         series: [
           // {
           //   color: "#01FFFF",
@@ -26,18 +29,25 @@ export default {
           // },
           {
             color: "#1C68FF",
-            name: "删除",
+            // name: "删除",
             data: ["100", "102", "114", "268", "68", "257", "400"],
           },
         ],
-        XYTitleColor: "#cccccc",
+        XYColor: "red",
+        titleColor: "#000",
       },
       option2: {
         xData: ["1", "2", "3", "4", "5", "6"],
+        width: 20,
         series: [
           {
             color: "red",
             name: "新增测试",
+            data: ["130", "205", "108", "568", "689", "457"],
+          },
+          {
+            color: "#000",
+            name: "新增测试1",
             data: ["130", "205", "18", "568", "689", "457"],
           },
           {
@@ -48,10 +58,10 @@ export default {
           {
             color: "#ccc",
             name: "编辑",
-            data: ["1002", "1222", "1142", "2682", "682", "2527"],
+            data: ["100", "122", "142", "282", "82", "227"],
           },
         ],
-        XYTitleColor: "#000",
+        XYColor: "#000",
       },
       option1: {
         xData: ["1", "2", "3", "4", "5", "6"],
@@ -68,7 +78,7 @@ export default {
             data: ["1002", "1222", "1142", "2682", "682", "2527"],
           },
         ],
-        XYTitleColor: "#000",
+        XYColor: "#000",
       },
       pie: {
         title: {
@@ -112,11 +122,12 @@ export default {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  height: 100vh;
+  height: 60vh;
   justify-content: space-around;
   > div {
     width: 40%;
-    height: 50%;
+    height: 60%;
+    // background: violet;
   }
 }
 </style>

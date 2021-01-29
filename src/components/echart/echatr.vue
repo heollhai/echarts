@@ -1,3 +1,31 @@
+<!-- 
+	option: {
+	  xData: ["1月", "2月", "3月", "4月", "5月", "6月", "7月"],
+	  title: "标题",
+	  width:25,
+	  series: [
+	    {
+	      color: "#1C68FF",
+	      name: "删除",
+	      data: ["100", "102", "114", "268", "68", "257", "400"],
+	    },
+	  ],
+	  XYColor: "red",
+	  titleColor:'#000'
+	},
+					作用			是否必须
+	isAxisChart 	饼图还是3d圆柱		默认3d圆柱	布尔类型
+	xData 	  		x轴显示数据			是			[]
+	series[								是			[]
+		color 		圆柱的颜色			否			string
+		name 		圆柱名称				否(没有 标题右侧 不会显示出来)
+		data 		圆柱显示的数据		是			[]
+	]
+	title     		标题				否			string
+	XYColor  		x y 轴颜色			否			string
+	titleColor  	标题颜色				否 (没有跟随  XYColor 的颜色)
+	width 	  		圆柱宽度				否			number    默认25
+ -->
 <template>
   <div class="Echart" style="height: 100%" ref="echart"></div>
 </template>
@@ -5,14 +33,13 @@
 <script>
 export default {
   props: {
-    //
     option: {
       type: Object,
       default: () => {
         return {};
       },
     },
-    //判断  是否需要  坐标
+    //判断  3d还是饼图
     isAxisChart: {
       type: Boolean,
       default: true,
@@ -170,45 +197,27 @@ export default {
     initChartData() {
       if (this.isAxisChart) {
         let data = {};
-        // 判断 传入的 series 长度 循环赋值给到 this.echart3D.series
-        data = this.seriesData();
+        // 根据 传入的 series 长度 循环赋值给到 this.echart3D.series
+        data = this.seriesData(this.option.width ? this.option.width : 25);
         // 对 this.echart3D.series  进行初始化  赋值
         this.option.series.forEach(() => {
           this.echart3D.series.push(...JSON.parse(JSON.stringify(data)));
         });
-
         this.echart3D.series.map((item, index) => {
           // index 0 -2 代表一根圆柱  一次类推  后面看下有无办法，，修改为循环赋值
           // 对 第一根柱子赋值
-          var len = this.echart3D.series.length / 3;
-          console.log(len, "pppp");
-          var Type = false;
-          console.log(Type);
-          var nums = 1;
-          console.log(index, len * 3, "len * 3");
-          if (index <= 2) {
+          if (index < 3) {
             this.judge(item, this.option, 0);
-            if (len !== nums) {
-              Type = true;
-              console.log(Type, 1231231);
-            }
-          } else if (index > 2 && index <= 5) {
+          } else if (index >= 3 && index < 6) {
             // 对 第2根柱子赋值
             this.judge(item, this.option, 1);
-          } else if (index > 5 && index <= 8) {
+          } else if (index >= 6 && index < 9) {
             // 对 第3根柱子赋值
             this.judge(item, this.option, 2);
+          } else if (index >= 9 && index < 12) {
+            // 对 第4根柱子赋值
+            this.judge(item, this.option, 3);
           }
-          // if (index <= 2) {
-          //   this.judge(item, this.option, 0);
-          //   console.log();
-          // } else if (index > 2 && index <= 5) {
-          //   // 对 第2根柱子赋值
-          //   this.judge(item, this.option, 1);
-          // } else if (index > 5 && index <= 8) {
-          //   // 对 第3根柱子赋值
-          //   this.judge(item, this.option, 2);
-          // }
           // 如果 有两根圆柱那么修改  所有圆柱的 偏移量
           let length = this.echart3D.series.length;
           if (length > 3 && length <= 6) {
@@ -227,12 +236,13 @@ export default {
                 break;
             }
           } else if (length > 6 && length <= 9) {
+            // 如果 有三根圆柱那么修改  所有圆柱的 偏移量
             switch (index) {
               case 1:
                 item.symbolOffset = ["-100%", "50%"]; //第一个圆柱下面的园
                 break;
               case 2:
-                item.symbolOffset = ["-120%", "-50%"]; //第一个圆柱上面的园
+                item.symbolOffset = ["-115%", "-50%"]; //第一个圆柱上面的园
                 break;
               case 4:
                 item.symbolOffset = ["0%", "50%"];
@@ -241,10 +251,38 @@ export default {
                 item.symbolOffset = ["0%", "-50%"];
                 break;
               case 7:
-                item.symbolOffset = ["100%", "-50%"];
+                item.symbolOffset = ["100%", "50%"];
                 break;
               case 8:
-                item.symbolOffset = ["120%", "-50%"];
+                item.symbolOffset = ["115%", "-50%"];
+                break;
+            }
+          } else if (length > 9 && length <= 12) {
+            // 如果 有四根圆柱那么修改  所有圆柱的 偏移量
+            switch (index) {
+              case 1:
+                item.symbolOffset = ["-150%", "50%"]; //第一个圆柱下面的园
+                break;
+              case 2:
+                item.symbolOffset = ["-165%", "-50%"]; //第一个圆柱上面的园
+                break;
+              case 4:
+                item.symbolOffset = ["-50%", "50%"];
+                break;
+              case 5:
+                item.symbolOffset = ["-50%", "-50%"];
+                break;
+              case 7:
+                item.symbolOffset = ["50%", "50%"];
+                break;
+              case 8:
+                item.symbolOffset = ["50%", "-50%"];
+                break;
+              case 10:
+                item.symbolOffset = ["150%", "50%"];
+                break;
+              case 11:
+                item.symbolOffset = ["170%", "-50%"];
                 break;
             }
           }
@@ -253,16 +291,23 @@ export default {
         // x轴数据
         this.echart3D.xAxis[0].data = this.option.xData;
         //  xy轴 标题 颜色
-        this.echart3D.yAxis[0].axisLabel.textStyle.color = this.option.XYTitleColor;
-        this.echart3D.xAxis[0].axisLabel.textStyle.color = this.option.XYTitleColor;
-        this.echart3D.title.textStyle.color = this.option.XYTitleColor;
-        this.echart3D.legend.textStyle.color = this.option.XYTitleColor;
+        this.echart3D.yAxis[0].axisLabel.textStyle.color = this.option.XYColor;
+        this.echart3D.xAxis[0].axisLabel.textStyle.color = this.option.XYColor;
+        // 标题   左右侧颜色
+        if (this.option.titleColor !== undefined) {
+          this.echart3D.title.textStyle.color = this.option.titleColor;
+          this.echart3D.legend.textStyle.color = this.option.titleColor;
+        } else {
+          this.echart3D.title.textStyle.color = this.option.XYColor;
+          this.echart3D.legend.textStyle.color = this.option.XYColor;
+        }
         this.echart3D.title.text = this.option.title;
       } else {
         // 如果进来的是饼图
         this.normal3D = this.option;
       }
     },
+    // 给某一跟圆柱赋值
     judge(item, option, num) {
       if (this.option.series[num] !== undefined) {
         item.data = option.series[num].data;
@@ -271,14 +316,13 @@ export default {
       }
     },
     // 初始数据
-    seriesData() {
-      let seriesData = [];
-      seriesData.push(
+    seriesData(width) {
+      let seriesData = [
         {
           z: 1,
           name: "",
           type: "bar",
-          barWidth: 15,
+          barWidth: width,
           barGap: "0%",
           data: [],
           itemStyle: {
@@ -294,7 +338,7 @@ export default {
           data: [],
           symbol: "diamond",
           symbolOffset: ["-0%", "50%"],
-          symbolSize: [15, 10],
+          symbolSize: [width, 10],
           itemStyle: {
             normal: {
               color: "red",
@@ -312,7 +356,7 @@ export default {
           data: [],
           symbol: "diamond",
           symbolOffset: ["-0%", "-50%"],
-          symbolSize: [15 - 4, (10 * (15 - 4)) / 15],
+          symbolSize: [width - 4, (10 * (width - 4)) / width],
           itemStyle: {
             normal: {
               borderColor: "#8bead4",
@@ -323,8 +367,8 @@ export default {
           tooltip: {
             show: false,
           },
-        }
-      );
+        },
+      ];
       return seriesData;
     },
   },
@@ -335,6 +379,5 @@ export default {
 .Echart {
   width: 100%;
   height: 100%;
-  // color: blue;
 }
 </style>
