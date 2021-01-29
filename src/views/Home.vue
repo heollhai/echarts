@@ -21,7 +21,6 @@ export default {
       this.data.series.push({
         name: key,
         data: this.dataList.map((item) => {
-          console.log(item, key, "key+item");
           return item[key];
         }),
         color: this.color[index],

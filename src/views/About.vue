@@ -1,9 +1,16 @@
 <template>
-  <div class="echart">echart</div>
+  <div style="width:50vw;height:50vh;">
+    <map3D></map3D>
+  </div>
 </template>
 
 <script>
-export default {};
+import map3D from "../components/map3D/index";
+export default {
+  components: {
+    map3D,
+  },
+};
 </script>
 
 <style></style>

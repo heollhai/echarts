@@ -37,13 +37,13 @@ export default {
       type: Object,
       default: () => {
         return {};
-      }
+      },
     },
     //判断  3d还是饼图
     isAxisChart: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   data() {
     return {
@@ -64,7 +64,7 @@ export default {
           textStyle: {
             // color: "red",
           },
-          padding: [10, 0, 10, 100] // 位置
+          padding: [10, 0, 10, 100], // 位置
         },
         legend: {
           selectedMode: false, //禁用点击事件
@@ -73,24 +73,24 @@ export default {
           top: 10,
           textStyle: {
             // 图列内容样式
-            color: "#ccc" // 字体颜色
+            color: "#ccc", // 字体颜色
           },
           tooltip: {
             // 图列提示框，默认不显示
             show: true,
-            color: "red"
-          }
+            color: "red",
+          },
         },
         // 鼠标放上效果
         tooltip: {
           trigger: "axis",
           textStyle: {
-            align: "left"
+            align: "left",
           },
           axisPointer: {
             // 坐标轴指示器，坐标轴触发有效
-            type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
-          }
+            type: "shadow", // 默认为直线，可选为：'line' | 'shadow'
+          },
         },
         // echart  距离周边的距离
         grid: {
@@ -98,7 +98,7 @@ export default {
           right: "3%",
           top: "15%",
           bottom: "5%",
-          containLabel: true
+          containLabel: true,
         },
         // x轴效果
         xAxis: [
@@ -107,15 +107,15 @@ export default {
               show: true,
               textStyle: {
                 color: "#000000",
-                fontSize: 12
+                fontSize: 12,
               },
-              margin: 20 //刻度标签与轴线之间的距离。
+              margin: 20, //刻度标签与轴线之间的距离。
             },
             axisLine: {
-              show: false //不显示x轴
+              show: false, //不显示x轴
             },
             axisTick: {
-              show: false //不显示刻度
+              show: false, //不显示刻度
             },
             boundaryGap: true,
             splitLine: {
@@ -123,10 +123,10 @@ export default {
               width: 0.08,
               lineStyle: {
                 type: "solid",
-                color: "#000000"
-              }
-            }
-          }
+                color: "#000000",
+              },
+            },
+          },
         ],
         // y 轴效果
         yAxis: [
@@ -137,8 +137,8 @@ export default {
               lineStyle: {
                 //网格样式
                 color: "#eee",
-                type: "solid"
-              }
+                type: "dashed",
+              },
             },
             // axisTick: {
             //   show: false,
@@ -148,23 +148,23 @@ export default {
             // },
             axisLabel: {
               textStyle: {
-                color: ""
-              }
-            }
-          }
+                color: "",
+              },
+            },
+          },
         ],
-        series: []
+        series: [],
       },
       normal3D: {
-        series: []
-      }
+        series: [],
+      },
     };
   },
   computed: {
     // 3d还是饼图
     options() {
       return this.isAxisChart ? this.echart3D : this.normal3D;
-    }
+    },
   },
   mounted() {
     // 初始化
@@ -277,7 +277,6 @@ export default {
                 item.symbolOffset = ["50%", "50%"];
                 break;
               case 8:
-
                 item.symbolOffset = ["50%", "-50%"];
                 break;
               case 10:
@@ -329,9 +328,9 @@ export default {
           data: [],
           itemStyle: {
             normal: {
-              color: "red"
-            }
-          }
+              color: "",
+            },
+          },
         },
         {
           z: 2,
@@ -339,16 +338,17 @@ export default {
           type: "pictorialBar",
           data: [],
           symbol: "diamond",
+          // symbol 的类型有 circle', 'rect', 'roundRect', 'triangle', 'diamond','pin','arrow', 'none'
           symbolOffset: ["-0%", "50%"],
           symbolSize: [width, 10],
           itemStyle: {
             normal: {
-              color: "red"
-            }
+              color: "",
+            },
           },
           tooltip: {
-            show: false
-          }
+            show: false,
+          },
         },
         {
           z: 3,
@@ -363,18 +363,17 @@ export default {
             normal: {
               borderColor: "#8bead4",
               borderWidth: 2,
-              color: "red"
-            }
+              color: "",
+            },
           },
           tooltip: {
             show: false,
           },
         },
-
       ];
       return seriesData;
-    }
-  }
+    },
+  },
 };
 </script>
 
