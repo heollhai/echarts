@@ -141,12 +141,12 @@ export default {
           if (typeof pieData[i].itemStyle != "undefined") {
             let itemStyle = {};
 
-            // typeof pieData[i].itemStyle.color != "undefined"
-            //   ? (itemStyle.color = pieData[i].itemStyle.color)
-            //   : null;
-            // typeof pieData[i].itemStyle.opacity != "undefined"
-            //   ? (itemStyle.opacity = pieData[i].itemStyle.opacity)
-            //   : null;
+            typeof pieData[i].itemStyle.color != "undefined"
+              ? (itemStyle.color = pieData[i].itemStyle.color)
+              : null;
+            typeof pieData[i].itemStyle.opacity != "undefined"
+              ? (itemStyle.opacity = pieData[i].itemStyle.opacity)
+              : null;
 
             seriesItem.itemStyle = itemStyle;
           }
@@ -164,10 +164,10 @@ export default {
           series[i].parametricEquation = getParametricEquation(
             series[i].pieData.startRatio,
             series[i].pieData.endRatio,
-            false,
-            false,
+            true,
+            true,
             k,
-            series[i].pieData.value
+            3 //series[i].pieData.value
           );
 
           startValue = endValue;
@@ -216,11 +216,14 @@ export default {
             bottom: "50%",
             environment: "auto", //背景色,auto为自适应颜色
             viewControl: {
+              rotateSensitivity: 0,
+              zoomSensitivity: 0,
               distance: 300,
               alpha: 25, // y 角度
               beta: 100, // x 角度
             },
           },
+
           series: series,
         };
         // console.log(option,"option") ;
@@ -235,7 +238,7 @@ export default {
             type: "pie",
             itemStyle: {
               opacity: 0.5,
-              color: "rgba(0,127,244,.8)",
+              color: "red",
             },
           },
           {
@@ -243,7 +246,7 @@ export default {
             value: 2,
             itemStyle: {
               opacity: 0.5,
-              color: "rgba(0,127,244,.8)",
+              color: "#ccc",
             },
           },
           {
@@ -251,7 +254,7 @@ export default {
             value: 3,
             itemStyle: {
               opacity: 0.5,
-              color: "rgba(209,126,23,.8)",
+              color: "#000",
             },
           },
         ],

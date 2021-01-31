@@ -49,16 +49,6 @@ export default {
     return {
       echart: null,
       echart3D: {
-        // label: {
-        //   show: true, //开启显示
-        //   position: "top", //在上方显示
-        //   textStyle: {
-        //     //数值样式
-        //     color: "black",
-        //     fontSize: ,
-        //     fontWeight: 600,
-        //   },
-        // },
         title: {
           text: "",
           textStyle: {
@@ -140,12 +130,6 @@ export default {
                 type: "dashed",
               },
             },
-            // axisTick: {
-            //   show: false,
-            // },
-            // axisLine: {
-            //   show: false,
-            // },
             axisLabel: {
               textStyle: {
                 color: "",
@@ -160,11 +144,16 @@ export default {
       },
     };
   },
-  computed: {
-    // 3d还是饼图
-    options() {
-      return this.isAxisChart ? this.echart3D : this.normal3D;
-    },
+  //如果数据发生改变，，那么更新数据
+  watch:{
+    option:{
+      handler(){
+        this.initChart()
+      },
+      deep:true
+    }
+    
+    
   },
   mounted() {
     // 初始化
@@ -182,12 +171,12 @@ export default {
       this.initChartData();
       if (this.echart) {
         //有初始化  使用刚指定的配置项和数据显示图表
-        this.echart.setOption(this.options);
+        this.echart.setOption(this.echart3D);
       } else {
         //没有初始化 先初始化  在使用
         var echarts = require("echarts");
         this.echart = echarts.init(this.$refs.echart);
-        this.echart.setOption(this.options);
+        this.echart.setOption(this.echart3D);
       }
     },
     resizeChart() {
