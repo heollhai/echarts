@@ -4,8 +4,9 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/d3">d3</router-link>
+      <router-link to="/d32">d32</router-link>
     </div>
-      <router-view />
+    <router-view />
   </div>
 </template>
 
