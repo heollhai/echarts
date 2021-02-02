@@ -9,8 +9,8 @@ export default {
     console.log(11111111111222);
     const oriData = [
       { x: "A计划", y: 20 },
-      { x: "B计划", y: 40 },
-      { x: "C计划", y: 90 },
+      // { x: "B计划", y: 40 },
+      // { x: "C计划", y: 90 },
       { x: "D计划", y: 80 },
       { x: "E计划", y: 120 },
       { x: "F计划", y: 100 },
@@ -30,9 +30,9 @@ export default {
     let arc = d3
       .arc()
       .innerRadius(70)
-      // .outerRadius(radius)
+      .outerRadius(radius)
       .cornerRadius(10);
-
+    console.log(g,svg,'pppppppp')
     //饼图与文字相连的曲线起点
     let pointStart = d3
       .arc()
@@ -60,6 +60,7 @@ export default {
     // .domain(d3.range(0, oriData.length))
     // .range(d3.schemeSet1);
     //
+    console.log(radius,arc)
     g.append("g")
       .attr("transform", "translate( " + radius + ", " + radius + " )")
       // .attr("stroke", "steelblue")
@@ -184,7 +185,6 @@ export default {
         d3
           .linkHorizontal()
           .source(function(d) {
-            console.log(pointStart.centroid(d), "[[[[");
             return pointStart.centroid(d);
           })
           .target(function(d) {
