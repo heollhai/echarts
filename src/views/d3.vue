@@ -49,7 +49,7 @@ export default {
       .attr("height", 300);
     svg.append("g").attr("id", "salesDonut");
     this.changeData(); //                 x      y   () 倾斜度  高  中心半径
-    draw("salesDonut", this.randomData(), 180, 120, 45, 20, 5, 0.8);
+    draw("salesDonut", this.randomData(), 180, 120, 35, 20, 5, 0.8);
   },
 };
 </script>

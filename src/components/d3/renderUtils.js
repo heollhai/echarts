@@ -61,15 +61,44 @@ export const draw = (
   //   .arc()
   //   .innerRadius(radius + 80)
   //   .outerRadius(radius + 100);
-  console.log(pointStart, pointEnd1, '[[[[[[')
 
 
+  let arc = d3
+    .arc()
+    .innerRadius(rx * 0.8)
+    .outerRadius(rx)
+    .cornerRadius(ry);
+  let arc1 = d3
+    .arc()
+    .innerRadius(rx * 0.8)
+    .outerRadius(rx * 1.2)
+    .cornerRadius(ry * 1.2);
+  let arc2 = d3
+    .arc()
+    .innerRadius(1)
+    .cornerRadius(10);
+  console.log(arc, arc1, arc2, pointStart, pointEnd1, '[[[[[[')
   // 上层2d平面
+  // slices
+  //   .select(`#${id}`)
+  //   // .data(dataset)
+  //   .enter()
+  //   .append("svg")
+  //   .attr("width", 10)
+  //   .attr("height", 10)
+  // slices.append("ellipse")
+  //   .attr("transform", "translate( " + -radius * 4 + ", " + -radius * 2.6 + " )")
+  //   .attr("cx", x)
+  //   .attr("cy", y)
+  //   .attr("rx", rx)
+  //   .attr("ry", ry)
+  //   .attr("fill", "green")
   slices
     .selectAll('.topSlice')
     .data(dataset)
     .enter()
     .append('path')
+    // .attr("transform", "rotate(150)")
     .attr('class', 'topSlice')
     .style('fill', function (d) {
       return d.data.color;
@@ -77,8 +106,12 @@ export const draw = (
     .style('stroke', function (d) {
       return d.data.color;
     })
+    // .attr("d", function (d) {
+    //   return arc(d);
+    // })
     .attr('d', function (d) {
-      return pieTop(d, rx, ry, ir);
+      console.log(pieTop(d, rx, ry, 0.8), ' pieTop(d, rx, ry, 0.8)')
+      return pieTop(d, rx, ry, 0.8);
     })
     .each(function (d) {
       this._current = d;
@@ -113,11 +146,9 @@ export const draw = (
     .attr('dominant-baseline', 'central')
     .attr('font-size', '12px')
     .attr('x', function (d) {
-      console.log(2 * ry * Math.sin(0.5 * (d.startAngle + d.endAngle)), '前')
       return 2 * rx * Math.cos(0.5 * (d.startAngle + d.endAngle));
     })
     .attr('y', function (d) {
-      console.log(d, 2.3 * ry * Math.sin(0.5 * (d.startAngle + d.endAngle)), '后')
       return 2.3 * ry * Math.sin(0.5 * (d.startAngle + d.endAngle));
     })
     .text(getPercent)
@@ -137,17 +168,12 @@ export const draw = (
       d3
       .linkHorizontal()
       .source(function (d) {
-        // console.log(d, '--k')
         console.log(pointStart.centroid(d), '--d')
-        return pointStart.centroid(d);
+        return arc.centroid(d);
       })
       .target(function (d) {
         console.log(pointEnd1.centroid(d), ';;;')
-        return [
-          [88.18366412067833, 65.75440199904027],
-          [96.20036085892181, 71.73207490804393],
-          [150, 71.73207490804393]
-        ];
+        return pointEnd1.centroid(d);
       })
     )
     .style("stroke", "#999")
@@ -239,7 +265,6 @@ function pieOuter(d, rx, ry, h) {
   const sy = ry * Math.sin(startAngle);
   const ex = rx * Math.cos(endAngle);
   const ey = ry * Math.sin(endAngle);
-
   const ret = [];
   ret.push(
     'M',
@@ -347,15 +372,6 @@ export const transition = (id, data, rx, ry, h, ir) => {
 
   d3.select(`#${id}`)
     .selectAll('.percent')
-    .data(_data)
-    .transition()
-    .duration(750)
-    .attrTween('x', textTweenX)
-    .attrTween('y', textTweenY)
-    .text(getPercent);
-
-  d3.select(`#${id}`)
-    .selectAll('.quxian')
     .data(_data)
     .transition()
     .duration(750)

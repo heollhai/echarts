@@ -6,7 +6,6 @@
 import * as d3 from "d3";
 export default {
   mounted() {
-    console.log(11111111111222);
     const oriData = [
       { x: "A计划", y: 20 },
       { x: "B计划", y: 40 },
