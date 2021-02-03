@@ -1,11 +1,12 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
+      <router-link to="/">Echarts</router-link> |
+      <!-- <router-link to="/about">About</router-link> |
       <router-link to="/d3">d3</router-link> |
-      <router-link to="/d32">d32</router-link> |
+      <router-link to="/d32">d32</router-link> | -->
       <router-link to="/amcharts">amcharts</router-link> |
+      <router-link to="/pyramid">pyramid</router-link> |
     </div>
     <router-view />
   </div>

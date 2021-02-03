@@ -145,22 +145,19 @@ export default {
     };
   },
   //如果数据发生改变，，那么更新数据
-  watch:{
-    option:{
-      handler(){
-        this.initChart()
+  watch: {
+    option: {
+      handler() {
+        this.initChart();
       },
-      deep:true
-    }
-    
-    
+      deep: true,
+    },
   },
   mounted() {
     // 初始化
     this.initChart();
     // 窗口大小改变，适配大小
     window.addEventListener("resize", this.resizeChart);
-    this.resizeChart();
   },
   destroyed() {
     window.removeEventListener("resize", this.resizeChart);
