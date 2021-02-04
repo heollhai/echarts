@@ -15,11 +15,11 @@ const routes = [{
   //   component: () =>
   //     import( /* webpackChunkName: "about" */ "../views/About.vue")
   // },
-  // {
-  //   path: "/d3",
-  //   component: () =>
-  //     import( /* webpackChunkName: "about" */ "../views/d3.vue")
-  // },
+  {
+    path: "/d3",
+    component: () =>
+      import( /* webpackChunkName: "about" */ "../views/d3.vue")
+  },
   {
     path: "/amcharts",
     component: () =>

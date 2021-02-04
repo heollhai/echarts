@@ -17,64 +17,116 @@ export default {
     id: String,
   },
   mounted() {
-    var chart = am4core.create(this.id, am4charts.SlicedChart);
+    am4core.useTheme(am4themes_animated);
+
+    let chart = am4core.create(this.id, am4charts.SlicedChart, {
+      depth3D: 100,
+      angle: 20,
+    });
     chart.data = [
-      // {
-      //   name: "Stage #1",
-      //   value: 60,
-      // },
-      // {
-      //   name: "Stage #2",
-      //   value: 80,
-      // },
-      // {
-      //   name: "Stage #3",
-      //   value: 120,
-      // },
-      // {
-      //   name: "Stage #4",
-      //   value: 150,
-      // },
-      // {
-      //   name: "Stage #5",
-      //   value: 180,
-      // },
-      // {
-      //   name: "Stage #6",
-      //   value: 200,
-      // },
+      {
+        name: "Stage #1",
+        value: 10,
+      },
+      {
+        name: "Stage #2",
+        value: 50,
+      },
+      {
+        name: "Stage #3",
+        value: 180,
+      },
+      {
+        name: "Stage #4",
+        value: 200,
+      },
+      {
+        name: "Stage #5",
+        value: 300,
+      },
+      {
+        name: "Stage #6",
+        value: 400,
+      },
       {
         name: "Stage #7",
-        value: 10,
+        value: 600,
       },
     ];
 
-    var man = "M493.1 116.7L928 673.9 316.5 796.2z";
-    var man2 = "M493.1 116.7L71.9 592.3l244.6 203.9z";
-    console.log(man, man2);
-    var series = chart.series.push(new am4charts.PictorialStackedSeries());
+    let series = chart.series.push(new am4charts.FunnelSeries());
     series.dataFields.value = "value";
     series.dataFields.category = "name";
-    series.labels.template.disabled = true;
-    series.ticks.template.disabled = true;
-    series.maskSprite.path = man;
-    series.dx = 146;
+    series.bottomRatio = 0.5;
+    series.alignLabels = true;
+    series.labelsOpposite = false;
+    // series.sliceLinks.template.height = 10;
+    series.sliceLinks.template.fillOpacity = 0.2;
+    // series.depth3D = 100;
 
-    var series1 = chart.series.push(new am4charts.PictorialStackedSeries());
-    series1.dataFields.value = "value";
-    series1.dataFields.category = "name";
-    series1.labels.template.disabled = true;
-    series1.ticks.template.disabled = true;
-    series1.dx = -100;
-    series1.maskSprite.path = man2;
+    // var chart = am4core.create(this.id, am4charts.SlicedChart);
+    // depth3D": 100,
+    // "angle": 20,
+    // chart.data = [
+    // {
+    //   name: "Stage #1",
+    //   value: 60,
+    // },
+    // {
+    //   name: "Stage #2",
+    //   value: 80,
+    // },
+    // {
+    //   name: "Stage #3",
+    //   value: 120,
+    // },
+    // {
+    //   name: "Stage #4",
+    //   value: 150,
+    // },
+    // {
+    //   name: "Stage #5",
+    //   value: 180,
+    // },
+    // {
+    //   name: "Stage #6",
+    //   value: 200,
+    // },
+    //   {
+    //     name: "Stage #7",
+    //     value: 10,
+    //   },
+    // ];
+
+    // var man = "M493.1 116.7L928 673.9 316.5 796.2z";
+    // var man2 = "M493.1 116.7L71.9 592.3l244.6 203.9z";
+    // console.log(man, man2);
+    // var series = chart.series.push(new am4charts.PictorialStackedSeries());
+    // series.dataFields.value = "value";
+    // series.dataFields.category = "name";
+    // series.labels.template.disabled = true;
+    // series.ticks.template.disabled = true;
+    // series.maskSprite.path = man;
+    // series.dx = 0;
+    // series.dy = 6;
+
+    // var series1 = chart.series.push(new am4charts.PictorialStackedSeries());
+    // series1.dataFields.value = "value";
+    // series1.dataFields.category = "name";
+    // series1.labels.template.disabled = true;
+    // series1.ticks.template.disabled = true;
+    // series1.dx = 0;
+    // series1.dy = 50;
+    // series1.maskSprite.path = man2;
 
     // var series2 = chart.series.push(new am4charts.PictorialStackedSeries());
     // series2.dataFields.value = "value";
     // series2.dataFields.category = "name";
     // series2.labels.template.disabled = true;
     // series2.ticks.template.disabled = true;
-    // series2.dx = -80;
     // series2.maskSprite.path = man2;
+    // series2.dx = 0;
+    // series2.dy = 80;
 
     let eles = document.querySelectorAll("[aria-labelledby]");
     eles.forEach((ele) => {
