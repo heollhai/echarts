@@ -8,6 +8,7 @@ import highcharts from 'highcharts'
 // import VueHighCharts from 'vue-highcharts'
 import highcharts3d from 'highcharts/highcharts-3d'
 highcharts3d(highcharts)
+import "./assets/icon/iconfont.css"
 
 
 Vue.config.productionTip = false;

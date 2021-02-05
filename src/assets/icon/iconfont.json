@@ -1,0 +1,16 @@
+{
+  "id": "2367221",
+  "name": "pyramid",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "19858054",
+      "name": "pyramid",
+      "font_class": "zu6199",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    }
+  ]
+}
