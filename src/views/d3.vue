@@ -2,7 +2,7 @@
   <div class="abc">
     <!-- <D3></D3> -->
     <!-- <hr /> -->
-    <D3_2 class="dingwei" ref="resss"></D3_2>
+    <!-- <D3_2 class="dingwei" ref="resss"></D3_2> -->
 
     <div class="abcd iconfont icon-zu6199" style=""></div>
     <div class="test ">
@@ -15,12 +15,12 @@
 // import * as d3 from "d3";
 // import D3 from "../components/d3/pyramid";
 import D3_3 from "../components/d3/pyramid_3";
-import D3_2 from "../components/d3/pyramid_2";
+// import D3_2 from "../components/d3/pyramid_2";
 
 export default {
   components: {
     // D3,
-    D3_2,
+    // D3_2,
     D3_3,
   },
 };
@@ -28,8 +28,8 @@ export default {
 
 <style lang="scss">
 .abc {
-  width: 800px;
-  height: 500px;
+  width:100%;
+  height: 100%;
   // background: url("https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2853553659,1775735885&fm=26&gp=0.jpg")
   // no-repeat;
   background-size: 100% 100%;
@@ -42,8 +42,10 @@ export default {
   .test {
     position: absolute;
     right: -100px;
-    width: 500px;
-    height: 500px;
+    width:100%;
+    height:100vh;
+    // width: 500px;
+    // height: 500px;
     border: 1px saddlebrown solid;
     display: flex;
     justify-content: center;

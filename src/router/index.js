@@ -21,6 +21,11 @@ const routes = [{
       import( /* webpackChunkName: "about" */ "../views/d3.vue")
   },
   {
+    path: "/d3test",
+    component: () =>
+      import( /* webpackChunkName: "about" */ "../views/d3/test1.vue")
+  },
+  {
     path: "/amcharts",
     component: () =>
       import( /* webpackChunkName: "about" */ "../views/amcharts.vue")

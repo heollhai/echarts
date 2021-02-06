@@ -7,6 +7,7 @@
       <router-link to="/amcharts">amcharts</router-link> |
       <router-link to="/pyramid">pyramid</router-link> |
       <router-link to="/d3">d3</router-link> |
+      <router-link to="/d3test">d3test</router-link> |
     </div>
     <router-view />
   </div>
