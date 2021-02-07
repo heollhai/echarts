@@ -1,32 +1,37 @@
 <template>
   <div class="D3" ref="D3">
-    <D3_4 :dataList="dataList" :color="color" :config="config"></D3_4>
-    <!-- <Rectangle style="width:400px;height:400px;"></Rectangle> -->
-    <!-- <div class="iconfont icon-zu6199"></div> -->
+    <D3_4
+      v-if="Type"
+      :dataList="dataList"
+      :color="color"
+      :config="config"
+    ></D3_4>
   </div>
 </template>
-
 <script>
-// import Rectangle from "@/components/d3/rectangle.vue";
 import D3_4 from "@/components/d3/pyramid_4.vue";
 export default {
   mounted() {
-    window.addEventListener("resize",this.sizeTo)
+    window.addEventListener("resize", this.sizeTo);
+    this.sizeTo();
   },
   components: {
     D3_4,
-    // Rectangle
   },
   methods: {
+    //窗口大小改变
     sizeTo() {
-      this.config.width = this.$refs.D3.offsetWidth;
-      this.config.height = this.$refs.D3.offsetHeight;
-    console.log(this.config.height, this.config.width, "this.$refs.D3");
-
+      this.$set(this.config, "width", this.$refs.D3.offsetWidth);
+      this.$set(this.config, "height", this.$refs.D3.offsetHeight);
+      this.Type = false;
+      this.$nextTick(() => {
+        this.Type = true;
+      });
     },
   },
   data() {
     return {
+      Type: true,
       config: {
         id: "svg8",
         width: 400,
@@ -43,21 +48,15 @@ export default {
         "#00E3E3",
         "#2828FF",
         "#6F00D2",
-        "red",
+        "#6E90A2",
       ],
       dataList: [
-        { nama: "火灾21321321", num: "40" },
-        { nama: "消防", num: "60" },
-        { nama: "刑事案件", num: "10" },
-        { nama: "一般事件", num: "30" },
-        { nama: "2号", num: "30" },
-        { nama: "19号", num: "44" },
-        { nama: "2号", num: "34" },
-        { nama: "2号", num: "54" },
-        // { nama: "2号", num: "6454" },
-        // { nama: "2号", num: "623" },
-        // { nama: "2号", num: "62" },
-        // { nama: "2号", num: "64" },
+        { name: "火灾事件1231aw", num: "40" },
+        { name: "消防事件", num: "60" },
+        { name: "刑事案件", num: "10" },
+        { name: "一般事件", num: "30" },
+        { name: "测试事件", num: "30" },
+        { name: "A事件", num: "44" },
       ],
     };
   },
@@ -69,5 +68,6 @@ export default {
   height: 45vh;
   width: 50vh;
   background: url("https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2853553659,1775735885&fm=26&gp=0.jpg");
+  background-size: 100% 100%;
 }
 </style>

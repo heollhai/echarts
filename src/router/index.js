@@ -9,12 +9,11 @@ const routes = [{
     name: "Home",
     component: Home
   },
-  // {
-  //   path: "/about",
-  //   name: "About",
-  //   component: () =>
-  //     import( /* webpackChunkName: "about" */ "../views/About.vue")
-  // },
+  {
+    path: "/mapDome",
+    component: () =>
+      import( /* webpackChunkName: "about" */ "../views/map3d/mapDome.vue")
+  },
   {
     path: "/d3",
     component: () =>
@@ -34,6 +33,11 @@ const routes = [{
     path: "/pyramid",
     component: () =>
       import( /* webpackChunkName: "about" */ "../views/pyramid.vue")
+  },
+  {
+    path: "/map3D",
+    component: () =>
+      import( /* webpackChunkName: "about" */ "../views/map3d/map3d.vue")
   },
 
 ];

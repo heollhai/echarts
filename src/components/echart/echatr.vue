@@ -139,9 +139,6 @@ export default {
         ],
         series: [],
       },
-      normal3D: {
-        series: [],
-      },
     };
   },
   //如果数据发生改变，，那么更新数据
@@ -289,9 +286,6 @@ export default {
           this.echart3D.legend.textStyle.color = this.option.XYColor;
         }
         this.echart3D.title.text = this.option.title;
-      } else {
-        // 如果进来的是饼图
-        this.normal3D = this.option;
       }
     },
     // 给某一跟圆柱赋值

@@ -8,11 +8,12 @@
       <router-link to="/pyramid">pyramid</router-link> |
       <router-link to="/d3">d3</router-link> |
       <router-link to="/d3test">d3test</router-link> |
+      <router-link to="/map3D">map3D</router-link> |
+      <router-link to="/mapDome">mapDome</router-link> |
     </div>
     <router-view />
   </div>
 </template>
-
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

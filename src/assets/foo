@@ -1,0 +1,9 @@
+map index
+//地图点击事件
+    // let that = this;
+    // this.echart.on("click", function(e) {
+    //   console.log(e.name, "w", that.echart);
+    //   that.echart.clear();
+    //   that.initMap(`${e.name}`, 200);
+    //   // this.echarts.registerMap("tongren", this.city[e.name]);
+    // });

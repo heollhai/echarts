@@ -23,12 +23,6 @@ export default {
   methods: {
     newData() {
       this.$set(this.data.series[0].data, 0, 445);
-      // dataList: [
-      //   { 删除: "123", 新增: "134" },
-      //   { 删除: "133", 新增: "334" },
-      //   { 删除: "153", 新增: "264" },
-      //   { 删除: "113", 新增: "274" },
-      // ],
     },
   },
   created() {
@@ -46,7 +40,7 @@ export default {
   },
   data() {
     return {
-      //饼图1
+      //柱状图1
       dataList: [
         { 删除: "123", 新增: "134" },
         { 删除: "133", 新增: "334" },
@@ -55,13 +49,13 @@ export default {
       ],
       color: ["#017AFE", "#00FFFE"],
       data: {
-        width: 15,
-        XYColor: "#fff",
-        xData: ["1月", "2月", "3月", "4月"],
+        width: 15, //宽
+        XYColor: "#fff", //默认黑色
+        xData: ["1月", "2月", "3月", "4月"], //x轴
         series: [],
       },
 
-      //饼图2
+      //柱状图2
       option: {
         xData: ["1月", "2月", "3月", "4月", "5月", "6月", "7月"],
         // title: "标题",
@@ -76,7 +70,7 @@ export default {
         XYColor: "red",
         titleColor: "#000",
       },
-      //饼图3
+      //柱状图3
       option2: {
         xData: ["1", "2", "3", "4", "5", "6"],
         width: 20,
@@ -105,7 +99,7 @@ export default {
         ],
         XYColor: "#000",
       },
-      //饼图4
+      //柱状图4
       option1: {
         width: 20,
         xData: ["1", "2", "3", "4", "5", "6"],
