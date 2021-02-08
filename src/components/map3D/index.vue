@@ -36,6 +36,7 @@ export default {
   methods: {
     mapInit() {
       var echarts = require("echarts");
+
       echarts.init(this.$refs.echart);
 
       const d = [];
@@ -267,6 +268,7 @@ export default {
 
       this.echart = echarts.init(this.$refs.echart);
       console.log(echarts, this.echart, "this.echart this.echart ----------");
+
       console.log(this.echart, "this.echart this.echart ");
       this.echart.setOption(mapOption);
     },
