@@ -1,5 +1,8 @@
 <template>
-  <div id="main" ref="echart" style="width: 100%; height: 100%;"></div>
+  <div>
+    <div id="main" ref="echart" style="width: 100%; height: 400px;"></div>
+    <div class="box" :style="{ backgroundImage: 'url(' + img + ')' }"></div>
+  </div>
 </template>
 
 <script>
@@ -10,6 +13,7 @@ import longhua from "../../assets/js/city/longhua.json";
 export default {
   data() {
     return {
+      img: require("../../assets/logo.png"),
       echart: null,
       city: {
         南山区: nanShang,
@@ -33,6 +37,7 @@ export default {
     mapInit() {
       var echarts = require("echarts");
       echarts.init(this.$refs.echart);
+
       const d = [];
       for (let i = 0; i < this.city["深圳"].features.length; i++) {
         let city = this.city["深圳"].features[i].properties;
@@ -47,10 +52,10 @@ export default {
       this.echart = echarts;
     },
     glInit(map, d, echarts) {
-      console.log(d, "我是总数据");
+      console.log(d);
       const geoCoordMap = {
         点位1: [114.071, 22.61],
-        点位2: [114.073, 22.63],
+        点位2: [114.073, 22.64],
         点位3: [114.075, 22.63],
         点位4: [114.07, 22.66],
         点位5: [114.072, 22.61],
@@ -67,13 +72,15 @@ export default {
             });
           }
         }
-        console.log(res, ";;;;;;;;;;;;;;;;;");
         return res;
       };
-
+      console.log(
+        (Math.random() * 100 + 200).toFixed(2),
+        "(Math.random() * 100 + 200).toFixed(2)"
+      );
       const iconLD =
         "path://M512 144.896c-141.312 0-256.512 115.2-256.512 256.512 0 178.688 164.864 372.224 227.328 445.44 9.728 11.776 15.872 18.944 18.432 22.528 2.56 3.584 6.656 5.632 10.752 5.632 3.584 0 7.168-1.536 9.728-4.096l1.024-1.024 0.512-1.024c2.048-3.072 7.68-9.728 18.944-23.04 61.952-73.728 226.816-268.8 226.816-444.416C768.512 260.096 653.312 144.896 512 144.896z m0 352.256c-52.736 0-95.744-43.008-95.744-95.744s43.008-95.744 95.744-95.744 95.744 43.008 95.744 95.744-43.008 95.744-95.744 95.744z";
-      console.log(iconLD);
+      console.log(iconLD, convertData);
       const mapOption = {
         title: {
           // 标题
@@ -85,6 +92,31 @@ export default {
             color: "#ccc",
           },
         },
+        xAxis: [
+          {
+            type: "value",
+            scale: false,
+            axisLabel: {
+              formatter: "{value}%",
+            },
+            axisTick: {
+              //刻度线样式
+              show: false,
+            },
+          },
+        ],
+        yAxis: [
+          {
+            type: "value",
+            scale: false,
+            axisLabel: {
+              formatter: "{value}",
+            },
+            axisTick: {
+              show: false,
+            },
+          },
+        ],
         tooltip: {
           // 提示框
           trigger: "item",
@@ -92,46 +124,150 @@ export default {
             return params.name;
           },
         },
-
-        geo3D: {
-          map,
-        },
-        series: [
+        // 数据映射
+        visualMap: [
           {
-            name: "电信",
-            type: "custom", //配置显示方式为用户自定义
-            coordinateSystem: "geo",
-            renderItem: function(params, api) {
-              console.log(params, api, "--------");
-              //具体实现自定义图标的方法
-              return {
-                type: "image",
-                style: {
-                  image:
-                    "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2853553659,1775735885&fm=26&gp=0.jpg",
-                  x: api.coordSys([114.071, 22.61])[0],
-                  y: api.coordSys([114.071, 22.61])[1],
-                },
-              };
+            show: true,
+            type: "piecewise",
+
+            itemWidth: 20, // 图形的宽度，即长条的宽度。
+            itemHeight: 40,
+            // text: ['bar3D'],
+            calculable: true,
+            categories: ["4A", "3A", "其他"],
+            textStyle: {
+              color: "#fff",
             },
-            data: convertData([
-              {
-                name: "点位1",
-                value: (Math.random() * 100 + 100).toFixed(2),
-              },
-              {
-                name: "点位2",
-                value: (Math.random() * 100 + 100).toFixed(2),
-              },
-              {
-                name: "点位3",
-                value: (Math.random() * 100 + 100).toFixed(2),
-              },
-            ]),
+            inRange: {
+              symbol: iconLD,
+              color: ["#D65769", "#D9C124", "#32F597"],
+            },
+            dimension: [[{ name: "4A" }], [{ name: "3A" }], [{ name: "其他" }]], // 指定用数据的『哪个维度』，映射到视觉元素上。『数据』即 series.data。 可以把 series.data 理解成一个二维数组,其中每个列是一个维度,默认取 data 中最后一个维度
+            seriesIndex: 3,
           },
         ],
+        geo3D: {
+          map,
+          boxDepth: 60,
+          itemStyle: {
+            opacity: 0.1, // 透明度
+            color: "#0079D7", // 地图颜色
+            borderWidth: 1.5, // 分界线宽度
+            borderColor: "#449E9D", // 分界线颜色
+          },
+        },
+        //path://M1300.8 303.2L1488 352l187.2-48.8L1488 256z M110.4 701.6L544 816l433.6-114.4L544 592z M544 288l-152.992-40.496L544 0l152.992 247.504L544 288z M1487.968 752l-399.52-105.76 212.56-343.744L1487.968 352l187.008-49.488 212.528 343.728L1487.968 752z M544 1024L0 880l110.496-178.752L544 816l433.504-114.752L1088 880l-544 144z
+        series: [
+          {
+            type: "scatter",
+            symbol: `path://M19,27A23.319,23.319,0,0,1,5.565,23.046C1.976,20.5,0,17.106,0,13.5s1.976-7,5.565-9.546A23.319,23.319,0,0,1,19,0,23.319,23.319,0,0,1,32.435,3.954C36.023,6.5,38,9.894,38,13.5s-1.976,7-5.565,9.546A23.319,23.319,0,0,1,19,27ZM19,1C9.075,1,1,6.607,1,13.5S9.075,26,19,26s18-5.608,18-12.5S28.925,1,19,1Z   `,
+            symbolSize: 12,
+            data: [
+              [0.0, 8.04, "point1"],
+              [8.0, 6.95, "point2"],
+              [13.0, 7.58, "point3"],
+              [9.0, 8.81, "point4"],
+              [11.0, 8.33, "point5"],
+            ],
+            itemStyle: {
+              //当前数据的样式
+              normal: { color: "#FFDB10" },
+            },
+          },
+          {
+            type: "scatter",
+            symbolSize: [10, 30],
+            symbolOffset: [0, -15],
+            symbol: `path://M2,23.5,0-2H7L5,23.5a1.5,1.5,0,0,1-3,0Z`,
+            data: [
+              [10.0, 8.04, "point1"],
+              [8.0, 6.95, "point2"],
+              [13.0, 7.58, "point3"],
+              [9.0, 8.81, "point4"],
+              [11.0, 8.33, "point5"],
+            ],
+            itemStyle: {
+              //当前数据的样式
+              normal: { color: "#FFDB10" },
+            },
+          },
+          {
+            type: "scatter",
+            symbolSize: 25,
+            symbolOffset: [0, 0],
+            symbol: `path://M19,27A23.319,23.319,0,0,1,5.565,23.046C1.976,20.5,0,17.106,0,13.5s1.976-7,5.565-9.546A23.319,23.319,0,0,1,19,0,23.319,23.319,0,0,1,32.435,3.954C36.023,6.5,38,9.894,38,13.5s-1.976,7-5.565,9.546A23.319,23.319,0,0,1,19,27ZM19,1C9.075,1,1,6.607,1,13.5S9.075,26,19,26s18-5.608,18-12.5S28.925,1,19,1Z   `,
+
+            data: [
+              [10.0, 8.04, "point1"],
+              [8.0, 6.95, "point2"],
+              [13.0, 7.58, "point3"],
+              [9.0, 8.81, "point4"],
+              [11.0, 8.33, "point5"],
+            ],
+            itemStyle: {
+              //当前数据的样式
+              normal: { color: "#FFDB10" },
+            },
+          },
+          {
+            name: "4A",
+            type: "scatter3D",
+            coordinateSystem: "geo3D",
+            minHeight: 3,
+            symbol: `path://M19,27A23.319,23.319,0,0,1,5.565,23.046C1.976,20.5,0,17.106,0,13.5s1.976-7,5.565-9.546A23.319,23.319,0,0,1,19,0,23.319,23.319,0,0,1,32.435,3.954C36.023,6.5,38,9.894,38,13.5s-1.976,7-5.565,9.546A23.319,23.319,0,0,1,19,27ZM19,1C9.075,1,1,6.607,1,13.5S9.075,26,19,26s18-5.608,18-12.5S28.925,1,19,1Z`,
+            symbolSize: [10, 40],
+            opacity: 1,
+            label: {
+              show: true,
+              formatter: "{b}",
+            },
+            itemStyle: {
+              color: "#D65769",
+              opacity: 1,
+            },
+            data: [
+              [10.0, 8.04, "point1"],
+              [8.0, 6.95, "point2"],
+              [13.0, 7.58, "point3"],
+              [9.0, 8.81, "point4"],
+              [11.0, 8.33, "point5"],
+            ],
+          },
+
+          // {
+          //   z: 2,
+          //   type: "bar3D",
+          //   coordinateSystem: "geo3D",
+          //   barSize: 1, //柱子粗细
+          //   shading: "lambert",
+          //   minHeight: 1,
+          //   bevelSmoothness: 20,
+
+          //   label: {
+          //     show: true,
+          //     formatter: "{b}",
+          //   },
+          //   itemStyle: {
+          //     color: "#D65769",
+          //     opacity: 1,
+          //   },
+          //   data: convertData([
+          //     {
+          //       name: "点位1",
+          //       value: (Math.random() * 100 + 200).toFixed(2),
+          //     },
+          //     {
+          //       name: "点位2",
+          //       value: (Math.random() * 100 + 100).toFixed(2),
+          //     },
+          //   ]),
+          // },
+        ],
       };
+
       this.echart = echarts.init(this.$refs.echart);
+      console.log(echarts, this.echart, "this.echart this.echart ----------");
+      console.log(this.echart, "this.echart this.echart ");
       this.echart.setOption(mapOption);
     },
     // initMap(name, size) {
@@ -335,4 +471,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.box {
+  width: 100px;
+  height: 100px;
+  /* background: red; */
+  /* background: url("url("+img+")");
+   */
+}
+</style>
