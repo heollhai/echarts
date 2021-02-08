@@ -12,6 +12,7 @@ import "echarts-gl";
 import nanShang from "../../assets/js/city/nanshang.json";
 import shenzheng from "../../assets/js/city/shenzheng.json";
 import longhua from "../../assets/js/city/longhua.json";
+import Guangdong from "../../assets/js/city/guangdong.json"
 export default {
   data() {
     return {
@@ -21,11 +22,13 @@ export default {
         南山区: nanShang,
         深圳: shenzheng,
         龙华区: longhua,
+        广东省:Guangdong
       },
     };
   },
   mounted() {
     this.mapInit();
+    console.log(this.city["广东省"],'guandong')
   },
   methods: {
     geos() {
@@ -98,12 +101,12 @@ export default {
             shwo: true,
             map: "深圳",
             roam: true,
-            zoom: 1.5,
+            zoom: 1.2,
             itemStyle: {
               normal: {
                 shadowColor: "#2AF8FB",
-                shadowOffsetX: 0,
-                shadowOffsetY: 12,
+                shadowOffsetX: 2,
+                shadowOffsetY: 14,
               },
             },
           },
@@ -111,7 +114,7 @@ export default {
             shwo: true,
             roam: true,
             map: "深圳",
-            zoom: 1.5,
+            zoom: 1.2,
             itemStyle: {
               normal: {
                 color: "#0079D7",
