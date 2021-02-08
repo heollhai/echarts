@@ -1,7 +1,9 @@
 <template>
   <div>
-    <div id="main" ref="echart" style="width: 100%; height: 400px;"></div>
-    <div class="box" :style="{ backgroundImage: 'url(' + img + ')' }"></div>
+    <div
+      ref="echart"
+      style="width: 100%; height: 400px;background:#151834;"
+    ></div>
   </div>
 </template>
 
@@ -24,16 +26,25 @@ export default {
   },
   mounted() {
     this.mapInit();
-    //地图点击事件;
-    // let that = this;
-    // this.echart.on("click", function(e) {
-    //   console.log(e.name, "w", that.echart);
-    //   that.echart.clear();
-    //   that.initMap(`${e.name}`, 200);
-    //   // this.echarts.registerMap("tongren", this.city[e.name]);
-    // });
   },
   methods: {
+    geos() {
+      let geo = [];
+      for (var i = 0; i < 20; i++) {
+        geo.push({
+          shwo: true,
+          map: "深圳",
+          itemStyle: {
+            normal: {
+              shadowColor: "rgba(1, 39, 44, 1)",
+              shadowOffsetX: 0,
+              shadowOffsetY: -5,
+            },
+          },
+        });
+      }
+      return geo;
+    },
     mapInit() {
       var echarts = require("echarts");
       echarts.init(this.$refs.echart);
@@ -54,14 +65,14 @@ export default {
     glInit(map, d, echarts) {
       console.log(d, map, echarts);
       const geoCoordMap = {
-        点位1: [114.071, 22.61],
-        点位2: [114.073, 22.64],
-        点位3: [114.075, 22.63],
-        点位4: [114.07, 22.66],
-        点位5: [114.072, 22.61],
+        点位1: [114.071, 22.71],
+        点位2: [114.373, 22.64],
+        点位3: [114.275, 22.67],
+        点位4: [114.07, 22.58],
+        点位5: [114.472, 22.61],
       };
-      var mydata = [{ name: "北京", value: Math.round(Math.random() * 500) }];
-      //最后的空的是给一个最小值这样打的点不会塌陷到地图里面。
+
+      // //最后的空的是给一个最小值这样打的点不会塌陷到地图里面。
       const convertData = function(data) {
         const res = [];
         for (let i = 0; i < data.length; i++) {
@@ -75,91 +86,183 @@ export default {
         }
         return res;
       };
-      var dataTemp = [
-        {
-          lng: "114.071",
-          num: 10,
-          time: "2020-03-19 08",
-          stationname: "太古小学（鄞州）",
-          lat: "22.61",
-        },
-        {
-          lng: "114.073",
-          num: 65,
-          time: "2020-03-19 08",
-          stationname: "万里学院（鄞州）",
-          lat: "22.64",
-        },
-      ];
-      console.log(dataTemp);
-      const iconLD =
-        "path://M512 144.896c-141.312 0-256.512 115.2-256.512 256.512 0 178.688 164.864 372.224 227.328 445.44 9.728 11.776 15.872 18.944 18.432 22.528 2.56 3.584 6.656 5.632 10.752 5.632 3.584 0 7.168-1.536 9.728-4.096l1.024-1.024 0.512-1.024c2.048-3.072 7.68-9.728 18.944-23.04 61.952-73.728 226.816-268.8 226.816-444.416C768.512 260.096 653.312 144.896 512 144.896z m0 352.256c-52.736 0-95.744-43.008-95.744-95.744s43.008-95.744 95.744-95.744 95.744 43.008 95.744 95.744-43.008 95.744-95.744 95.744z";
-      console.log(iconLD, convertData);
       var option = {
-        backgroundColor: "#FFFFFF",
-        title: {
-          text: "深圳地图",
-          x: "center",
-        },
         tooltip: {
           trigger: "item",
+          // formatter: function(params) {
+          //   return params.data.stationname + " : " + params.data.num;
+          // },
         },
-        visualMap: {
-          show: false,
-          x: "left",
-          y: "bottom",
-          splitList: [
-            { start: 500, end: 600 },
-            { start: 400, end: 500 },
-            { start: 300, end: 400 },
-            { start: 200, end: 300 },
-            { start: 100, end: 200 },
-            { start: 0, end: 100 },
-          ],
-          color: [
-            "#66CC33",
-            "#00FF00",
-            "#66FF33",
-            "#339900",
-            "#33CC00",
-            "#00CC00",
-          ],
-        },
-        series: [
+        geo: [
           {
+            shwo: true,
             map: "深圳",
-            name: "随机数据",
-            type: "map",
             roam: true,
-            label: {
+            zoom: 1.5,
+            itemStyle: {
               normal: {
-                show: false,
-              },
-              emphasis: {
-                show: false,
+                shadowColor: "#2AF8FB",
+                shadowOffsetX: 0,
+                shadowOffsetY: 12,
               },
             },
-            data: mydata,
           },
           {
-            name: "地图",
-            type: "custom",
+            shwo: true,
+            roam: true,
+            map: "深圳",
+            zoom: 1.5,
+            itemStyle: {
+              normal: {
+                color: "#0079D7",
+                shadowColor: "#0066B5",
+                shadowOffsetX: 0,
+                shadowOffsetY: 0,
+              },
+            },
+            regions: [
+              {
+                // 重点 部分 ,在这里给大家模拟一个省份颜色与界线颜色的修改,如果想修改多个省份就在后面多添加几个对象即可.
+                name: "南山区", // 对应的是import "./china"  数据中的名称如: name: "广东省"(下面有截图)
+                itemStyle: {
+                  normal: {
+                    opacity: 1, // 透明度
+                    borderColor: "#0079D7", // 省份界线颜色
+                    borderWidth: 3, // 省份界线的宽度
+                    areaColor: "red", // 整个省份的颜色
+                  },
+                },
+              },
+            ],
+          },
+        ],
+        series: [
+          {
+            layoutCenter: ["50%", "0%"],
+            name: "ships",
+            type: "scatter",
             coordinateSystem: "geo",
-            // renderItem: function(params, api) {
-            //   //具体实现自定义图标的方法
-            //   if (
-            //     dataTemp[params.dataIndex].num > 0 &&
-            //     dataTemp[params.dataIndex].num <= 50
-            //   ) {
-            //     return addImage("../../assets/logo.png", params, api, dataTemp);
-            //   }
-            // },
-            // data: dataTemp,
+            symbolSize: 25,
+            itemStyle: {
+              color: "#FFDB10",
+              opacity: 1,
+            },
+            symbol: `path://M19,27A23.319,23.319,0,0,1,5.565,23.046C1.976,20.5,0,17.106,0,13.5s1.976-7,5.565-9.546A23.319,23.319,0,0,1,19,0,23.319,23.319,0,0,1,32.435,3.954C36.023,6.5,38,9.894,38,13.5s-1.976,7-5.565,9.546A23.319,23.319,0,0,1,19,27ZM19,1C9.075,1,1,6.607,1,13.5S9.075,26,19,26s18-5.608,18-12.5S28.925,1,19,1Z `,
+            data: convertData([
+              {
+                name: "点位1",
+                value: (Math.random() * 100 + 200).toFixed(2),
+              },
+              {
+                name: "点位2",
+                value: (Math.random() * 100 + 100).toFixed(2),
+              },
+              {
+                name: "点位3",
+                value: (Math.random() * 100 + 100).toFixed(2),
+              },
+              {
+                name: "点位4",
+                value: (Math.random() * 100 + 100).toFixed(2),
+              },
+              {
+                name: "点位5",
+                value: (Math.random() * 100 + 100).toFixed(2),
+              },
+            ]),
+          },
+          {
+            name: "ships",
+            type: "scatter",
+            coordinateSystem: "geo",
+            symbolSize: 15,
+            itemStyle: {
+              color: "#FFDB10",
+              opacity: 1,
+            },
+            symbol: `path://M19,27A23.319,23.319,0,0,1,5.565,23.046C1.976,20.5,0,17.106,0,13.5s1.976-7,5.565-9.546A23.319,23.319,0,0,1,19,0,23.319,23.319,0,0,1,32.435,3.954C36.023,6.5,38,9.894,38,13.5s-1.976,7-5.565,9.546A23.319,23.319,0,0,1,19,27ZM19,1C9.075,1,1,6.607,1,13.5S9.075,26,19,26s18-5.608,18-12.5S28.925,1,19,1Z`,
+            data: convertData([
+              {
+                name: "点位1",
+                value: (Math.random() * 100 + 200).toFixed(2),
+              },
+              {
+                name: "点位2",
+                value: (Math.random() * 100 + 100).toFixed(2),
+              },
+              {
+                name: "点位3",
+                value: (Math.random() * 100 + 100).toFixed(2),
+              },
+              {
+                name: "点位4",
+                value: (Math.random() * 100 + 100).toFixed(2),
+              },
+              {
+                name: "点位5",
+                value: (Math.random() * 100 + 100).toFixed(2),
+              },
+            ]),
+          },
+          {
+            name: "ships",
+            type: "scatter",
+            coordinateSystem: "geo",
+            symbolOffset: [0, -18],
+            symbolSize: [10, 30],
+            itemStyle: {
+              color: "#FFDB10",
+              opacity: 1,
+            },
+            symbol: `path://M2,23.5,0-2H7L5,23.5a1.5,1.5,0,0,1-3,0Z`,
+
+            data: convertData([
+              {
+                name: "点位1",
+                value: (Math.random() * 100 + 200).toFixed(2),
+              },
+              {
+                name: "点位2",
+                value: (Math.random() * 100 + 100).toFixed(2),
+              },
+              {
+                name: "点位3",
+                value: (Math.random() * 100 + 100).toFixed(2),
+              },
+              {
+                name: "点位4",
+                value: (Math.random() * 100 + 100).toFixed(2),
+              },
+              {
+                name: "点位5",
+                value: (Math.random() * 100 + 100).toFixed(2),
+              },
+            ]),
           },
         ],
       };
+      // this.option.geo.push( this.geos();)
+      // let list = this.geos();
+      // console.log(this.geos,'geos',)
       this.echart = echarts.init(this.$refs.echart);
       this.echart.setOption(option);
+      console.log(this.echart.getOption(), "this.echart----");
+      // let options  = this.echart.getOption()
+      let echartss = this.echart;
+      // let that = this;
+
+      echartss.on("georoam", function(params) {
+        var option = echartss.getOption(); //获得option对象
+        if (params.zoom != null && params.zoom != undefined) {
+          //捕捉到缩放时
+          option.geo[0].zoom = option.geo[1].zoom; //下层geo的缩放等级跟着上层的geo一起改变
+          option.geo[0].center = option.geo[1].center; //下层的geo的中心位置随着上层geo一起改变
+        } else {
+          //捕捉到拖曳时
+          option.geo[0].center = option.geo[1].center; //下层的geo的中心位置随着上层geo一起改变
+        }
+        echartss.setOption(option); //设置option
+      });
     },
   },
 };
