@@ -91,7 +91,7 @@ export default {
           lat: "22.64",
         },
       ];
-
+      console.log(dataTemp);
       const iconLD =
         "path://M512 144.896c-141.312 0-256.512 115.2-256.512 256.512 0 178.688 164.864 372.224 227.328 445.44 9.728 11.776 15.872 18.944 18.432 22.528 2.56 3.584 6.656 5.632 10.752 5.632 3.584 0 7.168-1.536 9.728-4.096l1.024-1.024 0.512-1.024c2.048-3.072 7.68-9.728 18.944-23.04 61.952-73.728 226.816-268.8 226.816-444.416C768.512 260.096 653.312 144.896 512 144.896z m0 352.256c-52.736 0-95.744-43.008-95.744-95.744s43.008-95.744 95.744-95.744 95.744 43.008 95.744 95.744-43.008 95.744-95.744 95.744z";
       console.log(iconLD, convertData);
@@ -145,8 +145,16 @@ export default {
             name: "地图",
             type: "custom",
             coordinateSystem: "geo",
-
-            data: dataTemp,
+            // renderItem: function(params, api) {
+            //   //具体实现自定义图标的方法
+            //   if (
+            //     dataTemp[params.dataIndex].num > 0 &&
+            //     dataTemp[params.dataIndex].num <= 50
+            //   ) {
+            //     return addImage("../../assets/logo.png", params, api, dataTemp);
+            //   }
+            // },
+            // data: dataTemp,
           },
         ],
       };
