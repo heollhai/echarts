@@ -1,8 +1,26 @@
-// config: { // id: "svg8", 必须有 // width: , 默认 400 //svg 宽 // height:,
-默认 400 // svg 高 // TriangleWidth: , 默认 30 //三角形 多边形 宽度 //
-polygonGap:, //默认 35//每个多边形的间隙 // polygonHeight: , 默认 35//多边形高度
-//}, //dataList[{name:"要有",num:要有}] 数据 //color[] Array 颜色
-
+<!-- 
+                                                            是否必须
+ config: {
+        id: "svg8",                                             是
+        // width: 400,                                          否
+        // height: 400,                                         否
+        // TriangleWidth: 30, //暂时代表所有的宽度                否 
+        // polygonGap: 35, //每个多边形的间隙                     否   
+        // polygonHeight: 35, //多边形高度                       否       
+      },
+      color: [                                                  否
+        "#6F00D2",
+        "red",
+      ],
+dataList: [                                                 //  右侧标签  是  name 和 num   随便一个也行                
+        { name: "火灾事件1231aw", num: "40" }, 
+        // { name: "消防事件", num: "60" },
+        // { name: "刑事案件", num: "10" },
+        // { name: "一般事件", num: "30" },
+        // { name: "测试事件", num: "30" },
+        // { name: "A事件", num: "44" },
+      ],
+-->
 <template>
   <svg :id="config.id" ref="svgRef" width="100%" height="100%" />
 </template>
@@ -91,7 +109,9 @@ export default {
           (TriangleCentreY - TriangleCentreY - TriangleWidth) +
           textY +
           1,
-        this.dataLength(this.dataList[0].name) + " " + this.dataList[0].num
+        this.dataLength(this.dataList[0].name ? this.dataList[0].name : "") +
+          " " +
+          (this.dataList[0].num ? this.dataList[0].num : "")
       );
       this.dataList.forEach((item, index) => {
         if (index > 0) {
@@ -132,7 +152,9 @@ export default {
                 gap) /
                 3 +
               textY,
-            this.dataLength(item.name) + " " + item.num
+            this.dataLength(item.name ? item.name : "") +
+              " " +
+              (item.num ? item.num : "")
           );
           //多边形右侧线条
           this.drawLine(
@@ -189,26 +211,25 @@ export default {
           this.drawHexagonLine(
             this.svg,
             CentreX,
-            TriangleCentreY + index * polygonGap + gap + polygonHeight,
+            TriangleCentreY + (index - 1) * polygonGap + gap + polygonHeight,
             CentreX,
-            TriangleCentreY + index * polygonGap + (slant + gap) * nums
+            TriangleCentreY + (index - 1) * polygonGap + (slant + gap) * nums
           );
           //右侧线条
           this.drawHexagonLine(
             this.svg,
             CentreX,
-            TriangleCentreY + index * polygonGap + (slant + gap) * nums,
-            CentreX + polygonWidth + size + index * 10,
-            TriangleCentreY + slant + gap - 1 + index * polygonGap,
-            this.color[index]
+            TriangleCentreY + (index - 1) * polygonGap + (slant + gap) * nums,
+            CentreX + polygonWidth + size + (index - 1) * 10,
+            TriangleCentreY + slant + gap - 1 + (index - 1) * polygonGap
           );
           //左侧线条
           this.drawHexagonLine(
             this.svg,
             CentreX,
-            TriangleCentreY + index * polygonGap + (slant + gap) * nums,
-            CentreX - polygonWidth - size - index * 10,
-            TriangleCentreY + slant + gap - 1 + index * polygonGap
+            TriangleCentreY + (index - 1) * polygonGap + (slant + gap) * nums,
+            CentreX - polygonWidth - size - (index - 1) * 10,
+            TriangleCentreY + slant + gap - 1 + (index - 1) * polygonGap
           );
         }
       });
@@ -218,7 +239,7 @@ export default {
     drawTable(svg, x, y, text) {
       svg
         .append("text")
-        .text(text)
+        .text(text ? text : "")
         .attr("x", x)
         .attr("y", y)
         .style("fill", "#FFF")
@@ -354,7 +375,7 @@ export default {
     //鼠标放上标签
     tooltipTbale(value, d, tooltip, tooltip_span, color) {
       tooltip
-        .html(value.name)
+        .html(value.name ? value.name : value.num)
         .style("left", d.clientX + 30 + "px")
         .style("top", d.clientY - 20 + "px")
         .style("background", color)
@@ -382,16 +403,11 @@ export default {
     },
   },
   mounted() {
-    //方法还没好
-    window.addEventListener("resize", this.resizeTo);
     this.init();
   },
   created() {
     //排序
     this.againsTsortKey(this.dataList, "num");
-  },
-  destroyed() {
-    this.svg = null;
   },
   props: {
     config: {

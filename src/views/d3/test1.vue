@@ -34,11 +34,11 @@ export default {
       Type: true,
       config: {
         id: "svg8",
-        width: 400,
-        height: 400,
-        TriangleWidth: 30, //暂时代表所有的宽度
-        polygonGap: 35, //每个多边形的间隙
-        polygonHeight: 35, //多边形高度
+        // width: 400,
+        // height: 400,
+        // TriangleWidth: 30, //暂时代表所有的宽度
+        // polygonGap: 35, //每个多边形的间隙
+        // polygonHeight: 35, //多边形高度
       },
       color: [
         "#6F00D2",

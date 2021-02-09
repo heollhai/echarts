@@ -45,11 +45,11 @@ export default {
         innerRadius: 70, //里面空心半径
         radius: 100, //半径
         angle: 70, //角度
-        depth: 5, //厚度
-        TopfontSize: 12, //鼠标放上字体
-        fontSize: 12, //环外的字体
-        alignLabels: false, //环形外面的展示方法
-        shadow: "#fff",
+        // depth: 5, //厚度
+        // TopfontSize: 12, //鼠标放上字体
+        // fontSize: 12, //环外的字体
+        // alignLabels: false, //环形外面的展示方法
+        // shadow: "#fff", //
         color: ["#0056e3", "#00cccc", "#007638", "#006785", "red"],
       },
       chartData: [

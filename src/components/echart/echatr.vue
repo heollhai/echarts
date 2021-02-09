@@ -14,7 +14,6 @@
 	  titleColor:'#000'
 	},
 					作用			是否必须
-	isAxisChart 	饼图还是3d圆柱		默认3d圆柱	布尔类型
 	xData 	  		x轴显示数据			是			[]
 	series[								是			[]
 		color 		圆柱的颜色			否			string
@@ -38,11 +37,6 @@ export default {
       default: () => {
         return {};
       },
-    },
-    //判断  3d还是饼图
-    isAxisChart: {
-      type: Boolean,
-      default: true,
     },
   },
   data() {
@@ -178,115 +172,113 @@ export default {
     },
     //
     initChartData() {
-      if (this.isAxisChart) {
-        let data = {};
-        // 根据 传入的 series 长度 循环赋值给到 this.echart3D.series
-        data = this.seriesData(this.option.width ? this.option.width : 25);
-        // 对 this.echart3D.series  进行初始化  赋值
-        this.option.series.forEach(() => {
-          this.echart3D.series.push(...JSON.parse(JSON.stringify(data)));
-        });
-        this.echart3D.series.map((item, index) => {
-          // index 0 -2 代表一根圆柱  一次类推  后面看下有无办法，，修改为循环赋值
-          // 对 第一根柱子赋值
-          if (index < 3) {
-            this.judge(item, this.option, 0);
-          } else if (index >= 3 && index < 6) {
-            // 对 第2根柱子赋值
-            this.judge(item, this.option, 1);
-          } else if (index >= 6 && index < 9) {
-            // 对 第3根柱子赋值
-            this.judge(item, this.option, 2);
-          } else if (index >= 9 && index < 12) {
-            // 对 第4根柱子赋值
-            this.judge(item, this.option, 3);
-          }
-          // 如果 有两根圆柱那么修改  所有圆柱的 偏移量
-          let length = this.echart3D.series.length;
-          if (length > 3 && length <= 6) {
-            switch (index) {
-              case 1:
-                item.symbolOffset = ["-50%", "50%"]; //第一个圆柱下面的园
-                break;
-              case 2:
-                item.symbolOffset = ["-50%", "-50%"]; //第一个圆柱上面的园
-                break;
-              case 4:
-                item.symbolOffset = ["50%", "50%"];
-                break;
-              case 5:
-                item.symbolOffset = ["50%", "-50%"];
-                break;
-            }
-          } else if (length > 6 && length <= 9) {
-            // 如果 有三根圆柱那么修改  所有圆柱的 偏移量
-            switch (index) {
-              case 1:
-                item.symbolOffset = ["-100%", "50%"]; //第一个圆柱下面的园
-                break;
-              case 2:
-                item.symbolOffset = ["-115%", "-50%"]; //第一个圆柱上面的园
-                break;
-              case 4:
-                item.symbolOffset = ["0%", "50%"];
-                break;
-              case 5:
-                item.symbolOffset = ["0%", "-50%"];
-                break;
-              case 7:
-                item.symbolOffset = ["100%", "50%"];
-
-                break;
-              case 8:
-                item.symbolOffset = ["115%", "-50%"];
-                break;
-            }
-          } else if (length > 9 && length <= 12) {
-            // 如果 有四根圆柱那么修改  所有圆柱的 偏移量
-            switch (index) {
-              case 1:
-                item.symbolOffset = ["-150%", "50%"]; //第一个圆柱下面的园
-                break;
-              case 2:
-                item.symbolOffset = ["-165%", "-50%"]; //第一个圆柱上面的园
-                break;
-              case 4:
-                item.symbolOffset = ["-50%", "50%"];
-                break;
-              case 5:
-                item.symbolOffset = ["-50%", "-50%"];
-                break;
-              case 7:
-                item.symbolOffset = ["50%", "50%"];
-                break;
-              case 8:
-                item.symbolOffset = ["50%", "-50%"];
-                break;
-              case 10:
-                item.symbolOffset = ["150%", "50%"];
-                break;
-              case 11:
-                item.symbolOffset = ["170%", "-50%"];
-                break;
-            }
-          }
-          return item;
-        });
-        // x轴数据
-        this.echart3D.xAxis[0].data = this.option.xData;
-        //  xy轴 标题 颜色
-        this.echart3D.yAxis[0].axisLabel.textStyle.color = this.option.XYColor;
-        this.echart3D.xAxis[0].axisLabel.textStyle.color = this.option.XYColor;
-        // 标题   左右侧颜色
-        if (this.option.titleColor !== undefined) {
-          this.echart3D.title.textStyle.color = this.option.titleColor;
-          this.echart3D.legend.textStyle.color = this.option.titleColor;
-        } else {
-          this.echart3D.title.textStyle.color = this.option.XYColor;
-          this.echart3D.legend.textStyle.color = this.option.XYColor;
+      let data = {};
+      // 根据 传入的 series 长度 循环赋值给到 this.echart3D.series
+      data = this.seriesData(this.option.width ? this.option.width : 25);
+      // 对 this.echart3D.series  进行初始化  赋值
+      this.option.series.forEach(() => {
+        this.echart3D.series.push(...JSON.parse(JSON.stringify(data)));
+      });
+      this.echart3D.series.map((item, index) => {
+        // index 0 -2 代表一根圆柱  一次类推  后面看下有无办法，，修改为循环赋值
+        // 对 第一根柱子赋值
+        if (index < 3) {
+          this.judge(item, this.option, 0);
+        } else if (index >= 3 && index < 6) {
+          // 对 第2根柱子赋值
+          this.judge(item, this.option, 1);
+        } else if (index >= 6 && index < 9) {
+          // 对 第3根柱子赋值
+          this.judge(item, this.option, 2);
+        } else if (index >= 9 && index < 12) {
+          // 对 第4根柱子赋值
+          this.judge(item, this.option, 3);
         }
-        this.echart3D.title.text = this.option.title;
+        // 如果 有两根圆柱那么修改  所有圆柱的 偏移量
+        let length = this.echart3D.series.length;
+        if (length > 3 && length <= 6) {
+          switch (index) {
+            case 1:
+              item.symbolOffset = ["-50%", "50%"]; //第一个圆柱下面的园
+              break;
+            case 2:
+              item.symbolOffset = ["-50%", "-50%"]; //第一个圆柱上面的园
+              break;
+            case 4:
+              item.symbolOffset = ["50%", "50%"];
+              break;
+            case 5:
+              item.symbolOffset = ["50%", "-50%"];
+              break;
+          }
+        } else if (length > 6 && length <= 9) {
+          // 如果 有三根圆柱那么修改  所有圆柱的 偏移量
+          switch (index) {
+            case 1:
+              item.symbolOffset = ["-100%", "50%"]; //第一个圆柱下面的园
+              break;
+            case 2:
+              item.symbolOffset = ["-115%", "-50%"]; //第一个圆柱上面的园
+              break;
+            case 4:
+              item.symbolOffset = ["0%", "50%"];
+              break;
+            case 5:
+              item.symbolOffset = ["0%", "-50%"];
+              break;
+            case 7:
+              item.symbolOffset = ["100%", "50%"];
+
+              break;
+            case 8:
+              item.symbolOffset = ["115%", "-50%"];
+              break;
+          }
+        } else if (length > 9 && length <= 12) {
+          // 如果 有四根圆柱那么修改  所有圆柱的 偏移量
+          switch (index) {
+            case 1:
+              item.symbolOffset = ["-150%", "50%"]; //第一个圆柱下面的园
+              break;
+            case 2:
+              item.symbolOffset = ["-165%", "-50%"]; //第一个圆柱上面的园
+              break;
+            case 4:
+              item.symbolOffset = ["-50%", "50%"];
+              break;
+            case 5:
+              item.symbolOffset = ["-50%", "-50%"];
+              break;
+            case 7:
+              item.symbolOffset = ["50%", "50%"];
+              break;
+            case 8:
+              item.symbolOffset = ["50%", "-50%"];
+              break;
+            case 10:
+              item.symbolOffset = ["150%", "50%"];
+              break;
+            case 11:
+              item.symbolOffset = ["170%", "-50%"];
+              break;
+          }
+        }
+        return item;
+      });
+      // x轴数据
+      this.echart3D.xAxis[0].data = this.option.xData;
+      //  xy轴 标题 颜色
+      this.echart3D.yAxis[0].axisLabel.textStyle.color = this.option.XYColor;
+      this.echart3D.xAxis[0].axisLabel.textStyle.color = this.option.XYColor;
+      // 标题   左右侧颜色
+      if (this.option.titleColor !== undefined) {
+        this.echart3D.title.textStyle.color = this.option.titleColor;
+        this.echart3D.legend.textStyle.color = this.option.titleColor;
+      } else {
+        this.echart3D.title.textStyle.color = this.option.XYColor;
+        this.echart3D.legend.textStyle.color = this.option.XYColor;
       }
+      this.echart3D.title.text = this.option.title;
     },
     // 给某一跟圆柱赋值
     judge(item, option, num) {

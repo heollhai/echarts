@@ -1,5 +1,23 @@
 <!-- 
-  propertyFields.fill  属性可以设置值，，跟随数据的值
+  propertyFields.fill  属性可以设置值，，跟随数据的值、
+                                                                        是否必须
+    id                                                                      是
+    config: {
+        innerRadius: 70, //里面空心半径                                      是(没有两个环形会错位)
+        radius: 100, //半径                                                 是(没有两个环形会错位)
+        angle: 70, //角度                                                   是(没有两个环形会错位)
+        // depth: 5, //厚度                                                   否
+        // TopfontSize: 12, //鼠标放上字体                                    否
+        // fontSize: 12, //环外的字体                                         否
+        // alignLabels: false, //环形外面的展示方法                            否
+        // shadow: "#fff", //                                                否
+        color: ["#0056e3", "#00cccc", "#007638", "#006785", "red"],          否
+    },
+    chartData: [                                                            是
+        {
+          name: "uania",
+          value: 401.9,
+        }]
  -->
 <template>
   <div style="height:100%;width:100%;" :id="id"></div>
@@ -43,6 +61,7 @@ export default {
   },
   methods: {
     am4themes_myTheme(target) {
+      //环形外面颜色
       if (target instanceof am4core.InterfaceColorSet) {
         target.setFor("grid", am4core.color("#00FAFE"));
       }
@@ -123,13 +142,6 @@ export default {
       //文字背景跟随环形颜色
       series.tooltip.background.propertyFields.stroke = "color";
       //鼠标放上背景阴影效果
-      // let shadow = series.tooltip.background.filters.getIndex(0);
-      // shadow.dx = 10;
-      // shadow.dy = 10;
-      // shadow.blur = 5;
-      // shadow.color = am4core.color("red");
-
-      //环形外面文字
       //文字颜色
       series.labels.template.fill = am4core.color("#DAD54B");
       //跟随环形外径旁
@@ -141,9 +153,6 @@ export default {
       //使用  html标签显示环形外面内容
       series.labels.template.html =
         '<div style="color:#ccc;font-size:14px;" >{name}</div><div>{value.percent.formatNumber("#.0")}%</div>';
-      //字体加粗
-      // series.fontWeight = "bold";
-
       //动画效果
       series.hiddenState.properties.endAngle = -90;
       //设置环形中间的间隙
@@ -152,8 +161,6 @@ export default {
       series.slices.template.propertyFields.fill = "color";
       // 设置参数，值
       series.dataFields.value = "value";
-      //暂时不需要   设置环形外面的初始内容
-      // series.dataFields.category = "name";
       // 去掉版本号
       let eles = document.querySelectorAll("[aria-labelledby]");
       eles.forEach((ele) => {
