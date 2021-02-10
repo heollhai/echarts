@@ -92,7 +92,6 @@ export default {
       // 角度
       chart.angle = this.config.angle ? this.config.angle : 60;
       //中间空心大小
-
       //下面环形配置
       var series1 = chart.series.push(new am4charts.PieSeries3D());
       series1.dataFields.value = "value";
@@ -108,12 +107,10 @@ export default {
       series1.innerRadius = this.config.innerRadius;
       series1.radius = this.config.radius;
       series1.dy = 6;
-
       //上面环形配置
       var series = chart.series.push(new am4charts.PieSeries3D());
       series.innerRadius = this.config.innerRadius;
       series.radius = this.config.radius;
-
       //设置字体大小
       series.tooltip.label.fontSize = this.config.TopfontSize
         ? this.config.TopfontSize
@@ -122,7 +119,6 @@ export default {
       series.fontSize = this.config.fontSize ? this.config.fontSize : 14;
       // 设置饼图深度
       series.depth = 1;
-
       //设置鼠标放上效果
       //显示内容
       series.slices.template.tooltipText = "{name}";

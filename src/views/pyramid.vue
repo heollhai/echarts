@@ -1,20 +1,20 @@
 <template>
-  <div class="pyramid">
+  <!-- <div class="pyramid">
     <Pyramid :id="id"></Pyramid>
-  </div>
+  </div> -->
 </template>
 
 <script>
-import Pyramid from "@/components/amcharts/pyramid.vue";
+// import Pyramid from "@/components/amcharts/pyramid.vue";
 export default {
-  components: {
-    Pyramid,
-  },
-  data() {
-    return {
-      id: "Pyramid",
-    };
-  },
+  // components: {
+  //   Pyramid,
+  // },
+  // data() {
+  //   return {
+  //     id: "Pyramid",
+  //   };
+  // },
 };
 </script>
 

@@ -1,4 +1,6 @@
-<!--                                                    是否必须
+<!--   
+ 在 json 中地区添加 "cp": [ 115.524238, 22.974485], 可以修改默认地区显示的文字坐标
+                                                 是否必须
    city: {
         广东: guangdong, //地图的json数据                   是
       },
@@ -76,6 +78,21 @@ export default {
   },
   mounted() {
     this.mapInit();
+    let that = this;
+    this.echart.on("click", function(d) {
+      // that.echart.dispose();
+      that.$nextTick(() => {
+        console.log("zhix");
+        that.options.geo = [];
+        that.options.series = [];
+        that.optionMap(d.name);
+        that.mapSeries();
+        var echarts = require("echarts");
+        echarts.registerMap(d.name, that.city[d.name]);
+        // that.echart = echarts.init(that.$refs.map2d);
+        that.echart.setOption(that.options, true);
+      });
+    });
   },
   methods: {
     mapSeries() {
@@ -127,7 +144,22 @@ export default {
         map: key,
         itemStyle: {
           normal: {
-            color: this.config.mapBg[0],
+            borderColor: "#00ffff", //边界线颜色
+            areaColor: this.config.mapBg[0], //默认区域颜色
+          },
+          emphasis: {
+            areaColor: this.config.hoverColor
+              ? this.config.hoverColor
+              : "#3066ba", //鼠标滑过区域颜色    none 为不显示
+          },
+        },
+        label: {
+          //地图上面地图的样式
+          emphasis: {
+            //这个会比 normal 感觉层要高
+            show: true, //开启悬浮事件
+            color: "#FFF", //字体颜色
+            fontSize: 12,
           },
         },
         regions: this.regions(),
@@ -160,7 +192,8 @@ export default {
       var echarts = require("echarts");
       echarts.registerMap(this.key, this.city[this.key]);
       this.echart = echarts.init(this.$refs.map2d);
-      this.echart.setOption(this.options);
+      this.echart.setOption(this.options, true);
+      // 监听地图绑定单击事件
     },
   },
 };

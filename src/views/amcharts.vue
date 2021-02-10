@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import amCharts from "../components/amcharts/pie";
+import amCharts from "../components/amcharts/pie.vue";
 export default {
   components: {
     amCharts,
@@ -65,7 +65,6 @@ export default {
           name: "99999",
           value: 301.9,
         },
-
         {
           name: "Ireland",
           value: 201.1,

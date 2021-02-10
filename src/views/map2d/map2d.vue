@@ -18,20 +18,29 @@
 <script>
 import Map2d_2 from "@/components/map2d/map2d_2.vue";
 import guangdong from "@/assets/js/city/guangdong.json";
+import shenZhen from "@/assets/js/city/shenzheng.json";
+// import longhua.json from "@/assets/js/city/longhua.json.json";
 import Map2d from "@/components/map2d/map2d.vue";
 export default {
   components: {
     Map2d,
     Map2d_2,
   },
+  methods: {},
+  mounted() {
+    // console.log(Longgang, "Longgang");
+  },
   data() {
     return {
       echart: null,
       city: {
         广东: guangdong, //地图的json数据
+        深圳市: shenZhen,
+        // 龙岗区: Longgang,
       },
       config: {
-        mapBg: ["#0079D7", "#2AF8FB", "#2AF8FB"], //第一个颜色是最上层的颜色//最少一个颜色
+        // hoverColor: "red",
+        mapBg: ["#09295b", "#2AF8FB", "#2AF8FB"], //第一个颜色是最上层的颜色//最少一个颜色
         bgOffsetX: 0, //底层地图x轴偏移
         bgOffsetY: 0, //底层地图y轴偏移
         regions: [
@@ -58,21 +67,6 @@ export default {
           symbolSize: [10, 30],
           symbol: `path://M2,23.5,0-2H7L5,23.5a1.5,1.5,0,0,1-3,0Z`,
         },
-        // {
-        //   name: "ships1",
-        //   symbolOffset: [0, -15],
-        //   itemStyle: {
-        //     color: "red",
-        //   },
-        //   symbolSize: [10, 30],
-        //   symbol: `path://M2,23.5,0-2H7L5,23.5a1.5,1.5,0,0,1-3,0Z`,
-        //   data: [
-        //     {
-        //       name: "点位6",
-        //       value: [112.671, 23.1],
-        //     },
-        //   ],
-        // },
       ],
       data: [
         {
